@@ -1,4 +1,5 @@
 import React from 'react';
+import BookView from './bookView'
 
 class Inventory extends React.Component {
     constructor( props ) {
@@ -6,12 +7,11 @@ class Inventory extends React.Component {
 
     }
 
-
     render(){
 
         const bookListing = this.props.books.map(
-            (book) => {
-                return (<div>{book.name}</div>)
+            (book, index) => {
+                return (<BookView key={index} book={book}/>)
             });
         return(
             <div className='col-4 inventory'>
