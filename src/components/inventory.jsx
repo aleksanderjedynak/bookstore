@@ -8,11 +8,14 @@ class Inventory extends React.Component {
 
 
     render(){
+
+        const bookListing = this.props.books.map(
+            (book) => {
+                return (<div>{book.name}</div>)
+            });
         return(
             <div className='col-4 inventory'>
-                { this.props.books.map( (book) => {
-                    return (<div>{book.name}</div>)})
-                }
+                {bookListing}
             </div>
         );
     };
