@@ -10,7 +10,9 @@ class Inventory extends React.Component {
     render(){
         return(
             <div className='col-4 inventory'>
-                <i>Inventory</i>
+                { this.props.books.map( (book) => {
+                    return (<div>{book.name}</div>)})
+                }
             </div>
         );
     };
