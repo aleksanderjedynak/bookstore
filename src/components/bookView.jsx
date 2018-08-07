@@ -12,6 +12,10 @@ class BookView extends React.Component{
                 <b>Name:{this.props.book.name} </b>
                 <i>Author:{this.props.book.author} </i>
                 <i>Description:{this.props.book.description}</i>
+                <button
+                    className='btn btn-info'
+                    onClick={ () => this.props.addToOrder(this.props.book) }>
+                    Add to Order</button>
             </div>
             );
     }
