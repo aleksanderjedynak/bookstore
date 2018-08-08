@@ -9,13 +9,13 @@ class Inventory extends React.Component {
 
     render(){
 
-        const bookListing = this.props.books.map(
-            (book, index) => {
-                return (<BookView key={index} book={book} addToOrder={this.props.addToOrder}/>)
-            });
+        // const bookListing = this.props.books.map(
+        //     (book, index) => {
+        //         return (<BookView key={index} book={book} addToOrder={this.props.addToOrder}/>)
+        //     });
         return(
             <div className='col-4 inventory'>
-                {bookListing}
+                {/*{bookListing}*/}
             </div>
         );
     };

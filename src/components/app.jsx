@@ -1,5 +1,4 @@
 import React from 'react';
-import AdminPanel from './adminPanel';
 import Order from './order';
 import Inventory from './inventory';
 import Header from './header';
@@ -9,20 +8,20 @@ class App extends React.Component {
     constructor( props ) {
         super( props );
         this.state = {
-            books: [],
+            // books: [],
             order: [],
         };
     }
 
-    addNewBook = (book) => {
-        let newBooks = [ ...this.state.books ];
-
-        newBooks.push( book );
-
-        this.setState( {
-            books: newBooks,
-        } );
-    };
+    // addNewBook = (book) => {
+    //     let newBooks = [ ...this.state.books ];
+    //
+    //     newBooks.push( book );
+    //
+    //     this.setState( {
+    //         books: newBooks,
+    //     } );
+    // };
 
     addToOrder = (book) => {
         this.setState({
@@ -44,7 +43,6 @@ class App extends React.Component {
                 <div className='row'>
                     <Order order={this.state.order} removeFromOrder={this.removeFromOrder}/>
                     <Inventory books={this.state.books} addToOrder={this.addToOrder}/>
-                    <AdminPanel books={this.state.books} addNewBook={this.addNewBook}/>
                 </div>
             </div>
         );
