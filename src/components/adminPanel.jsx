@@ -1,4 +1,5 @@
 import React from 'react';
+import { fbase, firebaseApp} from "../fbase";
 
 class AdminPanel extends React.Component {
 
@@ -13,8 +14,18 @@ class AdminPanel extends React.Component {
                 bookOnStock: false,
                 image: "",
             },
+            books: [],
+            loggedIn: false,
+            email: "",
+            password: "",
         };
     }
+
+    handleLoginChange = (event) => {
+        this.setState({
+            [event.target.name]: event.target.value,
+        });
+    };
 
     handleChange = (event) => {
         let newBook;
@@ -39,9 +50,8 @@ class AdminPanel extends React.Component {
     handleAddNewBook = (event) => {
         event.preventDefault();
         let newBook = { ...this.state.book };
-        // this.props.addNewBook(newBook);
-
         this.setState({
+            books: [...this.state.books, newBook],
             book: {
                 name: "",
                 author: "",
@@ -52,11 +62,62 @@ class AdminPanel extends React.Component {
         });
     };
 
-    render(){
 
+
+    componentDidMount(){
+        this.ref = fbase.syncState(
+            'bookstore/books',
+            {
+                context: this,
+                state: 'books',
+            }
+            );
+    };
+
+    componentWillUnmount(){
+        fbase.removeBinding(this.ref);
+    };
+
+    authenticate = (event) => {
+        event.preventDefault();
+        firebaseApp.auth().signInWithEmailAndPassword(this.state.email, this.state.password)
+            .then( () => {
+                this.setState({
+                    loggedIn: true,
+                });
+            } )
+            .catch( () => {
+                console.log('Unable to authenticate');
+            } );
+    };
+
+    render(){
         return(
             <div className='col-4 adminPanel'>
-                <form onSubmit={this.handleAddNewBook}>
+                { !this.state.loggedIn &&
+                <form onSubmit={this.authenticate}>
+                    <input
+                        type="text"
+                        placeholder='email'
+                        id='email'
+                        name='email'
+                        className='form-control'
+                        onChange={this.handleLoginChange}
+                        value={this.state.email}
+                    />
+                    <input
+                        type="password"
+                        id='password'
+                        name='password'
+                        className='form-control'
+                        placeholder='password'
+                        onChange={this.handleLoginChange}
+                        value={this.state.password}
+                    />
+                    <button type='submit' className='btn btn-primary'>log in</button>
+                </form>
+                }
+                { this.state.loggedIn && <form onSubmit={this.handleAddNewBook}>
                     <div className='form-group'>
                         <input
                             value={this.state.book.name}
@@ -112,7 +173,7 @@ class AdminPanel extends React.Component {
                         />
                     </div>
                     <button type='submit' className='btn btn-primary'>Add</button>
-                </form>
+                </form>}
             </div>
         );
     };
