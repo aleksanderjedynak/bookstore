@@ -14,7 +14,8 @@ class Order extends React.Component {
         });
 
         return(
-            <div className='col-4 order'>
+            <div className='col-6'>
+                <h2>Your order:</h2>
                 {orderBooks}
             </div>
         );

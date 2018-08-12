@@ -30,12 +30,14 @@ class Header extends React.Component {
 
         return(
             <div className='row header' onClick={this.handlerClick}>
-                <h1 className='col-12'>{value}</h1>
-                <div className='btn-group'>
-                    <Link to='/admin'><button className='btn btn-success' >Go to admin panel</button></Link>
-
+                <h1 className='col-8'>{value}</h1>
+                <div className='col-4'>
+                    <Link to='/admin' className='float-right'>
+                        <button className='btn btn-warning'>
+                            Administrator Panel
+                        </button>
+                    </Link>
                 </div>
-                <br/>
             </div>
         );
     };
