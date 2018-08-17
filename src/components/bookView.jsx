@@ -7,7 +7,6 @@ class BookView extends React.Component{
     }
 
     render(){
-        console.log(this.props.book.select);
         return(
             <div className="row bookView">
                 <div className="col-6">
