@@ -1,6 +1,7 @@
 import React from 'react';
 import { fbase, firebaseApp} from "../fbase";
-import Login from './login'
+import LoginForm from './loginForm'
+import BookForm from './bookForm'
 
 class AdminPanel extends React.Component {
 
@@ -95,72 +96,15 @@ class AdminPanel extends React.Component {
         return(
             <div className='container adminPanel'>
                 { !this.state.loggedIn &&
-                <Login
+                <LoginForm
                     authenticate={this.authenticate}
                     handleLoginChange={this.handleLoginChange}
                 />}
                 { this.state.loggedIn &&
-                <div className='row justify-content-star'>
-                    <div className='col-4'>
-                        <form onSubmit={this.handleAddNewBook}>
-                            <div className='form-group'>
-                                <input
-                                    value={this.state.book.name}
-                                    type="text"
-                                    placeholder='Book name'
-                                    id='name'
-                                    name='name'
-                                    className='form-control'
-                                    onChange={this.handleChange}
-                                />
-                            </div>
-                            <div className='form-group'>
-                                <input
-                                    value={this.state.book.author}
-                                    type="text"
-                                    placeholder='Book author'
-                                    id='author'
-                                    name='author'
-                                    className='form-control'
-                                    onChange={this.handleChange}
-                                />
-                            </div>
-                            <div className='form-group'>
-                        <textarea
-                            value={this.state.book.description}
-                            placeholder='Book description'
-                            id='description'
-                            name='description'
-                            className='form-control'
-                            onChange={this.handleChange}
-                        />
-                            </div>
-                            <div className='form-check'>
-                                <input
-                                    checked={this.state.book.bookOnStock}
-                                    type="checkbox"
-                                    id='bookOnStock'
-                                    name='bookOnStock'
-                                    className='form-check-input'
-                                    onChange={this.handleChange}
-                                />
-                                <label htmlFor="bookOnStock" className='form-check-label'>On stock</label>
-                            </div>
-                            <div className='form-group'>
-                                <input
-                                    value={this.state.book.image}
-                                    type="text"
-                                    placeholder='Book image'
-                                    id='image'
-                                    name='image'
-                                    className='form-control'
-                                    onChange={this.handleChange}
-                                />
-                            </div>
-                            <button type='submit' className='btn btn-primary'>Add</button>
-                        </form>
-                    </div>
-                </div>}
+                <BookForm
+                    handleAddNewBook={this.handleAddNewBook}
+                    handleChange={this.handleChange}
+                /> }
             </div>
         );
     };
