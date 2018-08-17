@@ -61,6 +61,17 @@ class BookForm extends React.Component{
                                 onChange={this.props.handleChange}
                             />
                         </div>
+                        <div className="form-group">
+                            <label>
+                                Pick your favorite genre:
+                                <select name='select' value={this.props.book.select} onChange={this.props.handleChangeSelect}>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                </select>
+                            </label>
+                        </div>
                         <button type='submit' className='btn btn-primary'>Add</button>
                         <button type='button' className='btn btn-primary float-right' onClick={this.props.handleSignOut}>Log out</button>
                     </form>

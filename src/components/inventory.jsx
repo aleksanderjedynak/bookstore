@@ -33,8 +33,10 @@ class Inventory extends React.Component {
             });
         return(
             <div className='col-6'>
-                <h2>Bookstore Inventory:</h2>
-                {bookListing}
+                <div className='inventoryBox'>
+                    <h2>Bookstore Inventory:</h2>
+                    {bookListing}
+                </div>
             </div>
         );
     };

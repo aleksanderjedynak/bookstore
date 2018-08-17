@@ -15,13 +15,25 @@ class AdminPanel extends React.Component {
                 description: "",
                 bookOnStock: false,
                 image: "",
+                select: 2,
             },
             books: [],
             loggedIn: false,
             email: "",
             password: "",
+
         };
     }
+
+    handleChangeSelect = (event) =>{
+        let newBook = {
+            ...this.state.book,
+            [event.target.name]: event.target.value,
+        };
+        this.setState({
+            book: newBook,
+        });
+    };
 
     handleLoginChange = (event) => {
         this.setState({
@@ -60,6 +72,7 @@ class AdminPanel extends React.Component {
                 description: "",
                 bookOnStock: false,
                 image: "",
+                select: 2,
             },
         });
     };
@@ -122,6 +135,7 @@ class AdminPanel extends React.Component {
                     handleAddNewBook={this.handleAddNewBook}
                     handleChange={this.handleChange}
                     handleSignOut={this.handleSignOut}
+                    handleChangeSelect={this.handleChangeSelect}
                 /> }
             </div>
         );
