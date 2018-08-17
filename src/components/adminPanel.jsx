@@ -1,5 +1,6 @@
 import React from 'react';
 import { fbase, firebaseApp} from "../fbase";
+import Login from './login'
 
 class AdminPanel extends React.Component {
 
@@ -62,8 +63,6 @@ class AdminPanel extends React.Component {
         });
     };
 
-
-
     componentDidMount(){
         this.ref = fbase.syncState(
             'bookstore/books',
@@ -71,7 +70,7 @@ class AdminPanel extends React.Component {
                 context: this,
                 state: 'books',
             }
-            );
+        );
     };
 
     componentWillUnmount(){
@@ -85,6 +84,7 @@ class AdminPanel extends React.Component {
                 this.setState({
                     loggedIn: true,
                 });
+                console.log("OK!!!");
             } )
             .catch( () => {
                 console.log('Unable to authenticate');
@@ -93,54 +93,39 @@ class AdminPanel extends React.Component {
 
     render(){
         return(
-            <div className='col-4 adminPanel'>
+            <div className='container adminPanel'>
                 { !this.state.loggedIn &&
-                <form onSubmit={this.authenticate}>
-                    <input
-                        type="text"
-                        placeholder='email'
-                        id='email'
-                        name='email'
-                        className='form-control'
-                        onChange={this.handleLoginChange}
-                        value={this.state.email}
-                    />
-                    <input
-                        type="password"
-                        id='password'
-                        name='password'
-                        className='form-control'
-                        placeholder='password'
-                        onChange={this.handleLoginChange}
-                        value={this.state.password}
-                    />
-                    <button type='submit' className='btn btn-primary'>log in</button>
-                </form>
-                }
-                { this.state.loggedIn && <form onSubmit={this.handleAddNewBook}>
-                    <div className='form-group'>
-                        <input
-                            value={this.state.book.name}
-                            type="text"
-                            placeholder='Book name'
-                            id='name'
-                            name='name'
-                            className='form-control'
-                            onChange={this.handleChange}
-                        />
-                    </div>
-                    <div className='form-group'>
-                        <input
-                            value={this.state.book.author}
-                            type="text"
-                            placeholder='Book author'
-                            id='author'
-                            name='author'
-                            className='form-control'
-                            onChange={this.handleChange}
-                        />
-                    </div>
-                    <div className='form-group'>
+                <Login
+                    authenticate={this.authenticate}
+                    handleLoginChange={this.handleLoginChange}
+                />}
+                { this.state.loggedIn &&
+                <div className='row justify-content-star'>
+                    <div className='col-4'>
+                        <form onSubmit={this.handleAddNewBook}>
+                            <div className='form-group'>
+                                <input
+                                    value={this.state.book.name}
+                                    type="text"
+                                    placeholder='Book name'
+                                    id='name'
+                                    name='name'
+                                    className='form-control'
+                                    onChange={this.handleChange}
+                                />
+                            </div>
+                            <div className='form-group'>
+                                <input
+                                    value={this.state.book.author}
+                                    type="text"
+                                    placeholder='Book author'
+                                    id='author'
+                                    name='author'
+                                    className='form-control'
+                                    onChange={this.handleChange}
+                                />
+                            </div>
+                            <div className='form-group'>
                         <textarea
                             value={this.state.book.description}
                             placeholder='Book description'
@@ -149,31 +134,33 @@ class AdminPanel extends React.Component {
                             className='form-control'
                             onChange={this.handleChange}
                         />
+                            </div>
+                            <div className='form-check'>
+                                <input
+                                    checked={this.state.book.bookOnStock}
+                                    type="checkbox"
+                                    id='bookOnStock'
+                                    name='bookOnStock'
+                                    className='form-check-input'
+                                    onChange={this.handleChange}
+                                />
+                                <label htmlFor="bookOnStock" className='form-check-label'>On stock</label>
+                            </div>
+                            <div className='form-group'>
+                                <input
+                                    value={this.state.book.image}
+                                    type="text"
+                                    placeholder='Book image'
+                                    id='image'
+                                    name='image'
+                                    className='form-control'
+                                    onChange={this.handleChange}
+                                />
+                            </div>
+                            <button type='submit' className='btn btn-primary'>Add</button>
+                        </form>
                     </div>
-                    <div className='form-check'>
-                        <input
-                            checked={this.state.book.bookOnStock}
-                            type="checkbox"
-                            id='bookOnStock'
-                            name='bookOnStock'
-                            className='form-check-input'
-                            onChange={this.handleChange}
-                        />
-                        <label htmlFor="bookOnStock" className='form-check-label'>On stock</label>
-                    </div>
-                    <div className='form-group'>
-                        <input
-                            value={this.state.book.image}
-                            type="text"
-                            placeholder='Book image'
-                            id='image'
-                            name='image'
-                            className='form-control'
-                            onChange={this.handleChange}
-                        />
-                    </div>
-                    <button type='submit' className='btn btn-primary'>Add</button>
-                </form>}
+                </div>}
             </div>
         );
     };
