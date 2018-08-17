@@ -1,9 +1,10 @@
 import React from 'react';
 
 class BookForm extends React.Component{
+
     render() {
         return (
-            <div className='row justify-content-star'>
+            <div className='row justify-content-center'>
                 <div className='col-4'>
                     <form onSubmit={(event) => this.props.handleAddNewBook(event)}>
                         <div className='form-group'>
@@ -61,6 +62,7 @@ class BookForm extends React.Component{
                             />
                         </div>
                         <button type='submit' className='btn btn-primary'>Add</button>
+                        <button type='button' className='btn btn-primary float-right' onClick={this.props.handleSignOut}>Log out</button>
                     </form>
                 </div>
             </div>

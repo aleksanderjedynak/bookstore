@@ -92,6 +92,22 @@ class AdminPanel extends React.Component {
             } );
     };
 
+    handleSignOut =() => {
+
+        firebaseApp.auth().signOut()
+            .then(
+                () => {
+                    this.setState({
+                        loggedIn: !this.state.loggedIn,
+                    });
+                    console.log('Signed Out');
+                }).catch(
+            () => {
+                console.log('Error');
+            }
+        );
+    };
+
     render(){
         return(
             <div className='container adminPanel'>
@@ -102,8 +118,10 @@ class AdminPanel extends React.Component {
                 />}
                 { this.state.loggedIn &&
                 <BookForm
+                    book={this.state.book}
                     handleAddNewBook={this.handleAddNewBook}
                     handleChange={this.handleChange}
+                    handleSignOut={this.handleSignOut}
                 /> }
             </div>
         );
