@@ -1,5 +1,5 @@
 import React from 'react';
-import { fbase, firebaseApp} from "../fbase";
+import { firebaseApp } from "../fbase";
 import LoginForm from './loginForm'
 import BookForm from './bookForm'
 
@@ -9,100 +9,14 @@ class AdminPanel extends React.Component {
         super(props);
 
         this.state = {
-            book: {
-                name: "",
-                author: "",
-                description: "",
-                bookOnStock: false,
-                image: "",
-                select: 2,
-            },
-            books: [],
             loggedIn: false,
-            email: "",
-            password: "",
-
         };
-    }
+    };
 
-    handleChangeSelect = (event) =>{
-        let newBook = {
-            ...this.state.book,
-            [event.target.name]: event.target.value,
-        };
+    handleLoggedIn = (value) => {
         this.setState({
-            book: newBook,
+            loggedIn: value,
         });
-    };
-
-    handleLoginChange = (event) => {
-        this.setState({
-            [event.target.name]: event.target.value,
-        });
-    };
-
-    handleChange = (event) => {
-        let newBook;
-
-        if(event.target.name === "bookOnStock"){
-            newBook = {
-                ...this.state.book,
-                [event.target.name]: event.target.checked,
-            };
-        } else{
-            newBook = {
-                ...this.state.book,
-                [event.target.name]: event.target.value,
-            };
-        }
-
-        this.setState({
-            book: newBook,
-        });
-    };
-
-    handleAddNewBook = (event) => {
-        event.preventDefault();
-        let newBook = { ...this.state.book };
-        this.setState({
-            books: [...this.state.books, newBook],
-            book: {
-                name: "",
-                author: "",
-                description: "",
-                bookOnStock: false,
-                image: "",
-                select: 2,
-            },
-        });
-    };
-
-    componentDidMount(){
-        this.ref = fbase.syncState(
-            'bookstore/books',
-            {
-                context: this,
-                state: 'books',
-            }
-        );
-    };
-
-    componentWillUnmount(){
-        fbase.removeBinding(this.ref);
-    };
-
-    authenticate = (event) => {
-        event.preventDefault();
-        firebaseApp.auth().signInWithEmailAndPassword(this.state.email, this.state.password)
-            .then( () => {
-                this.setState({
-                    loggedIn: true,
-                });
-                console.log("OK!!!");
-            } )
-            .catch( () => {
-                console.log('Unable to authenticate');
-            } );
     };
 
     handleSignOut =() => {
@@ -124,19 +38,29 @@ class AdminPanel extends React.Component {
     render(){
         return(
             <div className='container adminPanel'>
-                { !this.state.loggedIn &&
-                <LoginForm
-                    authenticate={this.authenticate}
-                    handleLoginChange={this.handleLoginChange}
-                />}
-                { this.state.loggedIn &&
-                <BookForm
-                    book={this.state.book}
-                    handleAddNewBook={this.handleAddNewBook}
-                    handleChange={this.handleChange}
-                    handleSignOut={this.handleSignOut}
-                    handleChangeSelect={this.handleChangeSelect}
-                /> }
+                <div className="row justify-content-center">
+                    <div className="col-4">
+                        <h1>Admin Panel</h1>
+                    </div>
+                </div>
+                { !this.state.loggedIn ? (<LoginForm handleLoggedIn={this.handleLoggedIn}/>) :
+                    (<React.Fragment>
+                        <div className="row">
+                            <div className="col-12">
+                                <button
+                                    type='button'
+                                    className='btn btn-danger float-right'
+                                    onClick={this.handleSignOut}
+                                >Log out
+                                </button>
+                            </div>
+                        </div>
+                        <BookForm
+                            book={this.state.book}
+                            handleSignOut={this.handleSignOut}
+                        />
+                    </React.Fragment>)
+                }
             </div>
         );
     };
