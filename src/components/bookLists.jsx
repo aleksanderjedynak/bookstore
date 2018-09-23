@@ -1,10 +1,10 @@
 import React from 'react';
 import { Link } from "react-router-dom";
+import AdminBookView from "./AdminBookView"
 
 class BookLists extends React.Component{
 
     render(){
-
         return(
             <React.Fragment>
                 <h1 className='bookLists'>List Book</h1>
@@ -17,9 +17,12 @@ class BookLists extends React.Component{
                     (<ul>
                         {this.props.books.map(
                             (book, index) =>
-                                <li key={index}>Name:<strong>{book.name}</strong> Author:{book.author}</li>
-                        )}</ul>) :
-                    (<div>nie ma nic</div>)}
+                                <AdminBookView
+                                    book={book}
+                                    key={index}
+                                    removeFromInventory={this.props.removeFromInventory}
+                                />
+                        )}</ul>) : null}
             </React.Fragment>
         )
     }

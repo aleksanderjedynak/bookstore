@@ -28,7 +28,7 @@ body {
   float: right;
 }
 
-.orderView{
+.orderView, .adminBookView{
   border-bottom: 2px solid black;
   margin: 5px;
   padding: 5px;

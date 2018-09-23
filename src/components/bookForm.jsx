@@ -69,7 +69,10 @@ class BookForm extends React.Component{
         return (
             <div className='row'>
                 <div className='col-6'>
-                    <BookLists books={this.props.books}/>
+                    <BookLists
+                        books={this.props.books}
+                        removeFromInventory={this.props.removeFromInventory}
+                    />
                 </div>
                 <div className='col-6'>
                     <h1>New Book</h1>
