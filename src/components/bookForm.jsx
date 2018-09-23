@@ -1,5 +1,5 @@
 import React from 'react';
-import { fbase } from "../fbase";
+import BookLists from "./bookLists";
 
 class BookForm extends React.Component{
 
@@ -15,23 +15,7 @@ class BookForm extends React.Component{
                 image: "",
                 select: 2,
             },
-            books: [],
-
         };
-    };
-
-    componentDidMount(){
-        this.ref = fbase.syncState(
-            'bookstore/books',
-            {
-                context: this,
-                state: 'books',
-            }
-        );
-    };
-
-    componentWillUnmount(){
-        fbase.removeBinding(this.ref);
     };
 
     handleChangeSelect = (event) =>{
@@ -48,8 +32,8 @@ class BookForm extends React.Component{
 
         event.preventDefault();
         let newBook = { ...this.state.book };
+        this.props.addNewBook(newBook);
         this.setState({
-            books: [...this.state.books, newBook],
             book: {
                 name: "",
                 author: "",
@@ -85,8 +69,7 @@ class BookForm extends React.Component{
         return (
             <div className='row'>
                 <div className='col-6'>
-                    <h1>List Book</h1>
-
+                    <BookLists books={this.props.books}/>
                 </div>
                 <div className='col-6'>
                     <h1>New Book</h1>
@@ -156,7 +139,7 @@ class BookForm extends React.Component{
                                 </select>
                             </label>
                         </div>
-                        <button type='submit' className='btn btn-primary'>Add</button>
+                        <button type='submit' className='btn btn-primary float-right'>Add</button>
                     </form>
                 </div>
             </div>

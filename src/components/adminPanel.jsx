@@ -1,5 +1,5 @@
 import React from 'react';
-import { firebaseApp } from "../fbase";
+import { fbase, firebaseApp } from "../fbase";
 import LoginForm from './loginForm'
 import BookForm from './bookForm'
 
@@ -10,6 +10,7 @@ class AdminPanel extends React.Component {
 
         this.state = {
             loggedIn: false,
+            books: [],
         };
     };
 
@@ -35,6 +36,24 @@ class AdminPanel extends React.Component {
         );
     };
 
+    addNewBook = (book) => this.setState({
+        books: [...this.state.books, book]
+    });
+
+    componentDidMount(){
+        this.ref = fbase.syncState(
+            'bookstore/books',
+            {
+                context: this,
+                state: 'books',
+            }
+        );
+    };
+
+    componentWillUnmount(){
+        fbase.removeBinding(this.ref);
+    };
+
     render(){
         return(
             <div className='container adminPanel'>
@@ -56,8 +75,8 @@ class AdminPanel extends React.Component {
                             </div>
                         </div>
                         <BookForm
-                            book={this.state.book}
-                            handleSignOut={this.handleSignOut}
+                            books={this.state.books}
+                            addNewBook={this.addNewBook}
                         />
                     </React.Fragment>)
                 }

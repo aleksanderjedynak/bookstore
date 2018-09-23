@@ -20,6 +20,14 @@ body {
   padding: 5px;
 }
 
+.bookLists{
+  display: inline-block;
+}
+
+.bookLists + a{
+  float: right;
+}
+
 .orderView{
   border-bottom: 2px solid black;
   margin: 5px;
