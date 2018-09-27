@@ -14,6 +14,7 @@ class BookForm extends React.Component{
                 bookOnStock: false,
                 image: "",
                 select: 2,
+                price: "",
             },
         };
     };
@@ -49,6 +50,7 @@ class BookForm extends React.Component{
                 bookOnStock: false,
                 image: "",
                 select: 2,
+                price: "",
             },
         });
     };
@@ -137,6 +139,17 @@ class BookForm extends React.Component{
                                 placeholder='Book image'
                                 id='image'
                                 name='image'
+                                className='form-control'
+                                onChange={this.handleChange}
+                            />
+                        </div>
+                        <div className='form-group'>
+                            <input
+                                value={this.state.book.price}
+                                type="number"
+                                placeholder='Book price'
+                                id='price'
+                                name='price'
                                 className='form-control'
                                 onChange={this.handleChange}
                             />
