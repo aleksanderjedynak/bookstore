@@ -5,12 +5,6 @@ import AdminPanel from "./adminPanel";
 import PageNotFound from "./pageNotFound";
 
 class Router extends React.Component{
-
-    constructor( props ) {
-        super( props );
-
-    };
-
     render(){
         return(
             <BrowserRouter>

@@ -21,6 +21,7 @@ class BookLists extends React.Component{
                                     book={book}
                                     key={index}
                                     removeFromInventory={this.props.removeFromInventory}
+                                    editFromInventory={this.props.editFromInventory}
                                 />
                         )}</ul>) : null}
             </React.Fragment>

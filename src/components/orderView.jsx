@@ -1,11 +1,6 @@
 import React from 'react';
 
 class OrderView extends React.Component{
-
-    constructor(props){
-        super(props);
-    }
-
     render(){
         return(
             <div className='orderView row'>

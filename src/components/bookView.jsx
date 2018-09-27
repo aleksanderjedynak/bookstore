@@ -1,11 +1,6 @@
 import React from 'react';
 
 class BookView extends React.Component{
-
-    constructor(props){
-        super(props);
-    }
-
     render(){
         return(
             <div className="row bookView">
@@ -30,7 +25,6 @@ class BookView extends React.Component{
                         <span className="sr-only">unread messages</span>
                     </button>}
                 </div>
-
             </div>
             );
     }

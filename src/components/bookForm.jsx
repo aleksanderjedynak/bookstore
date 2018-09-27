@@ -18,6 +18,14 @@ class BookForm extends React.Component{
         };
     };
 
+    componentWillReceiveProps(nextProps) {
+        if(this.props.editBook !==nextProps.editBook){
+            this.setState({
+                book : nextProps.editBook,
+            });
+        }
+    };
+
     handleChangeSelect = (event) =>{
         let newBook = {
             ...this.state.book,
@@ -66,12 +74,14 @@ class BookForm extends React.Component{
     };
 
     render() {
+        const label = this.props.editForm ? "Edit" : "Add";
         return (
             <div className='row'>
                 <div className='col-6'>
                     <BookLists
                         books={this.props.books}
                         removeFromInventory={this.props.removeFromInventory}
+                        editFromInventory={this.props.editFromInventory}
                     />
                 </div>
                 <div className='col-6'>
@@ -142,7 +152,7 @@ class BookForm extends React.Component{
                                 </select>
                             </label>
                         </div>
-                        <button type='submit' className='btn btn-primary float-right'>Add</button>
+                        <button type='submit' className='btn btn-primary float-right'>{label}</button>
                     </form>
                 </div>
             </div>

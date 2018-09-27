@@ -11,6 +11,8 @@ class AdminPanel extends React.Component {
         this.state = {
             loggedIn: false,
             books: [],
+            editForm: false,
+            editBook: {},
         };
     };
 
@@ -36,9 +38,19 @@ class AdminPanel extends React.Component {
         );
     };
 
-    addNewBook = (book) => this.setState({
-        books: [...this.state.books, book]
-    });
+    addNewBook = (book) => {
+        if(this.state.editForm){
+            const editBooks = this.state.books.filter( book => this.state.editBook.name!==book.name );
+            this.setState({
+                books: [...editBooks,book],
+                editForm: false,
+            })
+        } else{
+            this.setState({
+                books: [...this.state.books, book]
+            });
+        }
+    };
 
     componentDidMount(){
         this.ref = fbase.syncState(
@@ -57,6 +69,13 @@ class AdminPanel extends React.Component {
     removeFromInventory = (title) => {
         this.setState({
             books : this.state.books.filter( book => title!==book.name )
+        })
+    };
+
+    editFromInventory = (bookToEdit) => {
+        this.setState({
+            editBook : bookToEdit,
+            editForm: true,
         })
     };
 
@@ -84,6 +103,9 @@ class AdminPanel extends React.Component {
                             books={this.state.books}
                             addNewBook={this.addNewBook}
                             removeFromInventory={this.removeFromInventory}
+                            editFromInventory={this.editFromInventory}
+                            editForm={this.state.editForm}
+                            editBook={this.state.editBook}
                         />
                     </React.Fragment>)
                 }

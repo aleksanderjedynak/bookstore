@@ -11,12 +11,21 @@ class AdminBookView extends React.Component{
                     </b>
                 </div>
                 <div className='col-4'>
-                    <button className='btn btn-danger float-right'
-                            onClick={() => this.props.removeFromInventory(this.props.book.name)}
-                    >Remove
-                    </button>
+                    <div className="btn-toolbar" role="group">
+                        <div className="btn-group mr-1" role="group">
+                            <button className='btn btn-dark float-right'
+                                    onClick={() => this.props.editFromInventory(this.props.book)}
+                            >Edit
+                            </button>
+                        </div>
+                        <div className="btn-group" role="group">
+                            <button className='btn btn-danger float-right'
+                                    onClick={() => this.props.removeFromInventory(this.props.book.name)}
+                            >X
+                            </button>
+                        </div>
+                    </div>
                 </div>
-
             </div>
             );
     }
