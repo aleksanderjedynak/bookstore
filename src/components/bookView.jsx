@@ -20,13 +20,19 @@ class BookView extends React.Component{
                         onClick={ () => this.props.addToOrder(this.props.book) }>
                         Add to Order
                     </button>
-                    {this.props.book.select && <button type="button" className="btn btn-primary float-right">
-                        genre: <span className="badge badge-light">{this.props.book.select}</span>
+                    {this.props.book.select &&
+                    <button
+                        type="button"
+                        className="btn btn-primary float-right"
+                    >genre:
+                        <span className="badge badge-light">
+                            {this.props.book.select}
+                        </span>
                         <span className="sr-only">unread messages</span>
                     </button>}
                 </div>
             </div>
-            );
+        );
     }
 }
 
