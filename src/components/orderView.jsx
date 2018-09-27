@@ -4,15 +4,18 @@ class OrderView extends React.Component{
     render(){
         return(
             <div className='orderView row'>
-                <div className='col-6'>
+                <div className='col-8'>
                     <b>
                         <span>{this.props.book.name}</span>
                     </b>
                 </div>
-                <div className='col-6'>
-                    <button className='btn btn-danger float-right'
+                <div className='col-3'>
+                    <span className='float-right'>{this.props.book.price || "not available"}</span>
+                </div>
+                <div className='col-1'>
+                    <button className='btn btn-sm btn-danger float-right'
                             onClick={() => this.props.removeFromOrder(this.props.book.name)}
-                    >Remove from Order
+                    >X
                     </button>
                 </div>
 
