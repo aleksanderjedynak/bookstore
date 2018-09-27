@@ -16,8 +16,8 @@ class BookView extends React.Component{
                 </div>
                 <div className="col-12">
                     <button
-                        className='btn btn-info'
-                        onClick={ () => this.props.addToOrder(this.props.book) }>
+                        className={`btn ${this.props.book.bookOnStock ? 'btn-info' : 'disabled'} `}
+                        onClick={ () => this.props.book.bookOnStock && this.props.addToOrder(this.props.book) }>
                         Add to Order
                     </button>
                     {this.props.book.select &&
